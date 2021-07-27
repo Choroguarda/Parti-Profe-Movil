@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "795704698272",
+    "firebase_url": "https://parti-profe-default-rtdb.firebaseio.com",
+    "project_id": "parti-profe",
+    "storage_bucket": "parti-profe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795704698272:android:c52289534ae08018f8b0c5",
+        "android_client_info": {
+          "package_name": "com.example.parti_profe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795704698272-32p43ngsfam978bhjhg364j1bqc1jvl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXYn8MXkcoJf6MmWIXkn_6aYVZJlknzrg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795704698272-32p43ngsfam978bhjhg364j1bqc1jvl4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,23 +4,29 @@ import 'Screen/perfil_persona.dart';
 import 'Screen/home_screen.dart';
 import 'pages/index.dart';
 import 'Screen/registrarse.dart';
-import 'base/sqlite.dart';
+import 'fire/usuario.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() => runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(FireStoreApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      initialRoute: 'a',
+      initialRoute: 'fire',
       routes: {
         'diseño_basico': (_) => DisenoMenu(),
         'home_screen': (_) => HomeScreen(),
         'login': (BuildContext context) => Login(),
         'llamada': (_) => IndexPage(),
         'registro': (_) => Registrarse(),
-        'a': (_) => SqliteApp(),
+        'fire': (_) => FireStoreApp()
       },
     );
   }

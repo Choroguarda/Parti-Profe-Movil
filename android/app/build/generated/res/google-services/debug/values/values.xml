@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">795704698272-32p43ngsfam978bhjhg364j1bqc1jvl4.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://parti-profe-default-rtdb.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">795704698272</string>
+    <string name="google_api_key" translatable="false">AIzaSyBXYn8MXkcoJf6MmWIXkn_6aYVZJlknzrg</string>
+    <string name="google_app_id" translatable="false">1:795704698272:android:c52289534ae08018f8b0c5</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBXYn8MXkcoJf6MmWIXkn_6aYVZJlknzrg</string>
+    <string name="google_storage_bucket" translatable="false">parti-profe.appspot.com</string>
+    <string name="project_id" translatable="false">parti-profe</string>
+</resources>
