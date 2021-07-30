@@ -66,7 +66,8 @@ Widget _loginForm(BuildContext context) {
                 SizedBox(height: 30.0),
                 _edad(),
                 SizedBox(height: 30.0),
-                _datoscompletados()
+                _datoscompletados(context),
+                SizedBox(height: 30.0),
               ],
             )),
         SizedBox(height: 100.0)
@@ -205,7 +206,7 @@ Widget _tipos(BuildContext context) {
   );
 }
 
-Widget _datoscompletados() {
+Widget _datoscompletados(BuildContext context) {
   var currentUser = FirebaseAuth.instance.currentUser;
 
   if (currentUser != null) {
@@ -220,7 +221,7 @@ Widget _datoscompletados() {
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
       color: Colors.blueAccent,
-      child: Text('Presiona aca para continuar'),
+      child: Text('Finalizar registro'),
     ),
     style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -237,7 +238,8 @@ Widget _datoscompletados() {
         'Usuario': _nombreUsuariox.text,
         'Saldo': saldo,
       });
-
+      Navigator.pushNamedAndRemoveUntil(
+          context, 'home_screen', ModalRoute.withName('login'));
       _nombre.clear();
       _apePa.clear();
       _apeMa.clear();
