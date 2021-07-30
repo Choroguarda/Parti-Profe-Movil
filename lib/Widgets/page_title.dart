@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PageTittle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      print(currentUser.uid);
+    }
     return SafeArea(
       bottom: false,
       child: Container(
@@ -10,7 +16,7 @@ class PageTittle extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Bienvenido NOMBRE ',
+            Text('Bienvenido ',
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

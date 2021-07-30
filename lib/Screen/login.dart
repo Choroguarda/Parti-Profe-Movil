@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:parti_profe/Screen/registrarse.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -13,6 +16,9 @@ class Login extends StatelessWidget {
     );
   }
 }
+
+TextEditingController email = TextEditingController();
+TextEditingController password = TextEditingController();
 
 Widget _loginForm(BuildContext context) {
   final size = MediaQuery.of(context).size;
@@ -47,7 +53,9 @@ Widget _loginForm(BuildContext context) {
                 SizedBox(height: 30.0),
                 _crearPassword(),
                 SizedBox(height: 30.0),
-                _botonIngresar(),
+                _botonIngresar(context),
+                SizedBox(height: 30.0),
+                _crearCuenta(context),
               ],
             )),
         Text('¿Ovido la contraseña?'),
@@ -107,6 +115,7 @@ Widget _crearEmail() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
+        controller: email,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
@@ -120,6 +129,7 @@ Widget _crearPassword() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
+        controller: password,
         obscureText: true,
         decoration: InputDecoration(
             icon: Icon(Icons.lock, color: Colors.deepPurple),
@@ -127,7 +137,7 @@ Widget _crearPassword() {
   );
 }
 
-Widget _botonIngresar() {
+Widget _botonIngresar(BuildContext context) {
   return ElevatedButton(
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
@@ -139,6 +149,31 @@ Widget _botonIngresar() {
             RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0),
                 side: BorderSide(color: Colors.deepPurple)))),
-    onPressed: () {},
+    onPressed: () async {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: email.text, password: password.text);
+      Navigator.pushNamed(context, 'home_screen');
+    },
   );
+}
+
+Widget _crearCuenta(BuildContext context) {
+  return ElevatedButton(
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+        color: Colors.blueAccent,
+        child: Text('Crea tu cuenta '),
+      ),
+      style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  side: BorderSide(color: Colors.deepPurple)))),
+      onPressed: () {
+        final route = MaterialPageRoute(builder: (context) {
+          return Registrarse();
+        });
+
+        Navigator.push(context, route);
+      });
 }

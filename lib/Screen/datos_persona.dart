@@ -3,10 +3,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'datos_persona.dart';
-
-class Registrarse extends StatelessWidget {
+class Datos_Personales extends StatelessWidget {
   Widget build(BuildContext context) {
+    var currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+      print(currentUser.uid);
+    }
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -22,8 +25,6 @@ TextEditingController _email = TextEditingController();
 TextEditingController _password = TextEditingController();
 
 Widget _loginForm(BuildContext context) {
-  User? users = FirebaseAuth.instance.currentUser;
-
   final size = MediaQuery.of(context).size;
   return SingleChildScrollView(
     child: Column(
@@ -49,16 +50,19 @@ Widget _loginForm(BuildContext context) {
             ),
             child: Column(
               children: <Widget>[
-                Text('Registrate!!' + (users == null ? 'out' : 'in'),
+                Text('Ingresa tus datos personales!!',
                     style: TextStyle(fontSize: 20.0)),
-                SizedBox(height: 60.0),
-                _crearEmail(),
                 SizedBox(height: 30.0),
-                _crearPassword(),
+                _nombreUsuario(),
                 SizedBox(height: 30.0),
-                _botonIngresar(context),
+                _crearNombre(),
                 SizedBox(height: 30.0),
-                _salirprueba(),
+                _crearApellidoPaterno(),
+                SizedBox(height: 30.0),
+                _crearApellidoMaterno(),
+                SizedBox(height: 30.0),
+                _edad(),
+                SizedBox(height: 30.0),
               ],
             )),
         SizedBox(height: 100.0)
@@ -113,7 +117,7 @@ Widget _crearFondo(BuildContext context) {
   );
 }
 
-Widget _crearEmail() {
+Widget _nombreUsuario() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
@@ -121,57 +125,76 @@ Widget _crearEmail() {
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
-          hintText: 'ejemplo@correo.com',
-          labelText: 'Correo Electronico',
+          hintText: 'CesarMasterProfe',
+          labelText: 'Nombre Usuario',
         )),
   );
 }
 
-Widget _crearPassword() {
+Widget _crearNombre() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
-        controller: _password,
-        obscureText: true,
+        controller: _email,
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
-            icon: Icon(Icons.lock, color: Colors.deepPurple),
-            labelText: 'Contraseña')),
+          icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+          hintText: 'Diego Felipe',
+          labelText: 'Nombres o Nombre',
+        )),
   );
 }
 
-Widget _botonIngresar(BuildContext context) {
+Widget _crearApellidoPaterno() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20.0),
+    child: TextField(
+        controller: _email,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+          hintText: 'Sandoval',
+          labelText: 'Primer  Apellido',
+        )),
+  );
+}
+
+Widget _crearApellidoMaterno() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20.0),
+    child: TextField(
+        controller: _email,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+          hintText: 'Rios',
+          labelText: 'Segundo Apellido',
+        )),
+  );
+}
+
+Widget _edad() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20.0),
+    child: TextField(
+        controller: _email,
+        keyboardType: TextInputType.emailAddress,
+        decoration: InputDecoration(
+          icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+          hintText: '22',
+          labelText: 'Edad',
+        )),
+  );
+}
+
+Widget _datoscompletados() {
   User? user = FirebaseAuth.instance.currentUser;
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   return ElevatedButton(
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
       color: Colors.blueAccent,
-      child: Text('Crear'),
-    ),
-    style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                side: BorderSide(color: Colors.deepPurple)))),
-    onPressed: () async {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: _email.text, password: _password.text);
-      _email.clear();
-      _password.clear();
-
-      Navigator.pushNamed(context, 'datospersonales');
-    },
-  );
-}
-
-Widget _salirprueba() {
-  User? user = FirebaseAuth.instance.currentUser;
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
-  return ElevatedButton(
-    child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-      color: Colors.blueAccent,
-      child: Text('Salir'),
+      child: Text('Presiona aca para continuar'),
     ),
     style: ButtonStyle(
         shape: MaterialStateProperty.all<RoundedRectangleBorder>(

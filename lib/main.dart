@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:parti_profe/Screen/datos_persona.dart';
 import 'package:parti_profe/Screen/login.dart';
 import 'Screen/perfil_persona.dart';
 import 'Screen/home_screen.dart';
 import 'pages/index.dart';
 import 'Screen/registrarse.dart';
-import 'fire/usuario.dart';
+import 'Screen/datos_persona.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'fire/usuario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(FireStoreApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -19,14 +21,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
-      initialRoute: 'fire',
+      initialRoute: 'login',
       routes: {
         'diseño_basico': (_) => DisenoMenu(),
         'home_screen': (_) => HomeScreen(),
         'login': (BuildContext context) => Login(),
         'llamada': (_) => IndexPage(),
-        'registro': (_) => Registrarse(),
-        'fire': (_) => FireStoreApp()
+        'registro': (BuildContext context) => Registrarse(),
+        'datospersonales': (BuildContext context) => Datos_Personales(),
       },
     );
   }
