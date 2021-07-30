@@ -15,12 +15,11 @@ class BotonesMenu extends StatelessWidget {
             color: Colors.white, icon: Icons.monetization_on, text: 'Dinero'),
       ]),
       TableRow(children: [
-        Botones(color: Colors.white, icon: Icons.book, text: 'Mis cursos'),
-        Botones(color: Colors.white, icon: Icons.book, text: 'Mis cursos'),
-      ]),
-      TableRow(children: [
-        Botones(color: Colors.white, icon: Icons.book, text: 'Mis cursos'),
-        Botones(color: Colors.white, icon: Icons.book, text: 'Mis cursos'),
+        Botones(color: Colors.white, icon: Icons.alarm, text: 'Clases'),
+        Botones(
+            color: Colors.white,
+            icon: Icons.notifications,
+            text: 'Notificaciones'),
       ]),
     ]);
   }

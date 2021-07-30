@@ -21,8 +21,11 @@ class Datos_Personales extends StatelessWidget {
   }
 }
 
-TextEditingController _email = TextEditingController();
-TextEditingController _password = TextEditingController();
+TextEditingController _nombreUsuariox = TextEditingController();
+TextEditingController _nombre = TextEditingController();
+TextEditingController _apePa = TextEditingController();
+TextEditingController _apeMa = TextEditingController();
+TextEditingController _edaded = TextEditingController();
 
 Widget _loginForm(BuildContext context) {
   final size = MediaQuery.of(context).size;
@@ -63,6 +66,7 @@ Widget _loginForm(BuildContext context) {
                 SizedBox(height: 30.0),
                 _edad(),
                 SizedBox(height: 30.0),
+                _datoscompletados()
               ],
             )),
         SizedBox(height: 100.0)
@@ -121,8 +125,8 @@ Widget _nombreUsuario() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
-        controller: _email,
-        keyboardType: TextInputType.emailAddress,
+        controller: _nombreUsuariox,
+        keyboardType: TextInputType.name,
         decoration: InputDecoration(
           icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
           hintText: 'CesarMasterProfe',
@@ -135,8 +139,8 @@ Widget _crearNombre() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
-        controller: _email,
-        keyboardType: TextInputType.emailAddress,
+        controller: _nombre,
+        keyboardType: TextInputType.name,
         decoration: InputDecoration(
           icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
           hintText: 'Diego Felipe',
@@ -149,8 +153,8 @@ Widget _crearApellidoPaterno() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
-        controller: _email,
-        keyboardType: TextInputType.emailAddress,
+        controller: _apePa,
+        keyboardType: TextInputType.name,
         decoration: InputDecoration(
           icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
           hintText: 'Sandoval',
@@ -163,8 +167,8 @@ Widget _crearApellidoMaterno() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
-        controller: _email,
-        keyboardType: TextInputType.emailAddress,
+        controller: _apeMa,
+        keyboardType: TextInputType.name,
         decoration: InputDecoration(
           icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
           hintText: 'Rios',
@@ -177,7 +181,21 @@ Widget _edad() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
     child: TextField(
-        controller: _email,
+        controller: _edaded,
+        keyboardType: TextInputType.number,
+        decoration: InputDecoration(
+          icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+          hintText: '22',
+          labelText: 'Edad',
+        )),
+  );
+}
+
+Widget _tipos(BuildContext context) {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20.0),
+    child: TextField(
+        controller: _edaded,
         keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
           icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
@@ -188,8 +206,16 @@ Widget _edad() {
 }
 
 Widget _datoscompletados() {
+  var currentUser = FirebaseAuth.instance.currentUser;
+
+  if (currentUser != null) {
+    print(currentUser.uid);
+  }
+  String manteca = currentUser!.uid;
+  int saldo = 0;
   User? user = FirebaseAuth.instance.currentUser;
-  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference personas =
+      FirebaseFirestore.instance.collection('personas');
   return ElevatedButton(
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
@@ -202,7 +228,21 @@ Widget _datoscompletados() {
                 borderRadius: BorderRadius.circular(5.0),
                 side: BorderSide(color: Colors.deepPurple)))),
     onPressed: () async {
-      await FirebaseAuth.instance.signOut();
+      personas.add({
+        'ID': manteca,
+        'Nombre': _nombre.text,
+        'Paterno': _apePa.text,
+        'Materno': _apeMa.text,
+        'Edad': _edaded.text,
+        'Usuario': _nombreUsuariox.text,
+        'Saldo': saldo,
+      });
+
+      _nombre.clear();
+      _apePa.clear();
+      _apeMa.clear();
+      _edaded.clear();
+      _nombreUsuariox.clear();
     },
   );
 }
