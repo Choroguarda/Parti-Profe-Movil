@@ -159,7 +159,7 @@ Widget _botonIngresar(BuildContext context) {
       _email.clear();
       _password.clear();
 
-      Navigator.pushNamed(context, 'datospersonales');
+      Navigator.pushNamed(context, 'eleccion');
     },
   );
 }

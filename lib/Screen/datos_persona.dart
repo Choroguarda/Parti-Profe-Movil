@@ -26,7 +26,7 @@ TextEditingController _nombre = TextEditingController();
 TextEditingController _apePa = TextEditingController();
 TextEditingController _apeMa = TextEditingController();
 TextEditingController _edaded = TextEditingController();
-
+TextEditingController _ocupacionex = TextEditingController();
 Widget _loginForm(BuildContext context) {
   final size = MediaQuery.of(context).size;
   return SingleChildScrollView(
@@ -53,7 +53,7 @@ Widget _loginForm(BuildContext context) {
             ),
             child: Column(
               children: <Widget>[
-                Text('Ingresa tus datos personales!!',
+                Text('Ingresa tus datos personales profe!!',
                     style: TextStyle(fontSize: 20.0)),
                 SizedBox(height: 30.0),
                 _nombreUsuario(),
@@ -66,7 +66,9 @@ Widget _loginForm(BuildContext context) {
                 SizedBox(height: 30.0),
                 _edad(),
                 SizedBox(height: 30.0),
-                _datoscompletados(context),
+                _ocupacion(),
+                SizedBox(height: 30.0),
+                _datoscompletadosprofe(context),
                 SizedBox(height: 30.0),
               ],
             )),
@@ -136,6 +138,20 @@ Widget _nombreUsuario() {
   );
 }
 
+Widget _ocupacion() {
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 20.0),
+    child: TextField(
+        controller: _ocupacionex,
+        keyboardType: TextInputType.name,
+        decoration: InputDecoration(
+          icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
+          hintText: 'Programador Flutter',
+          labelText: 'Ocupacion',
+        )),
+  );
+}
+
 Widget _crearNombre() {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -192,27 +208,11 @@ Widget _edad() {
   );
 }
 
-Widget _tipos(BuildContext context) {
-  return Container(
-    padding: EdgeInsets.symmetric(horizontal: 20.0),
-    child: TextField(
-        controller: _edaded,
-        keyboardType: TextInputType.emailAddress,
-        decoration: InputDecoration(
-          icon: Icon(Icons.alternate_email, color: Colors.deepPurple),
-          hintText: '22',
-          labelText: 'Edad',
-        )),
-  );
-}
-
-Widget _datoscompletados(BuildContext context) {
+Widget _datoscompletadosprofe(BuildContext context) {
   var currentUser = FirebaseAuth.instance.currentUser;
 
-  if (currentUser != null) {
-    print(currentUser.uid);
-  }
   String manteca = currentUser!.uid;
+  String tipo = 'profesor';
   int saldo = 0;
   User? user = FirebaseAuth.instance.currentUser;
   CollectionReference personas =
@@ -237,6 +237,8 @@ Widget _datoscompletados(BuildContext context) {
         'Edad': _edaded.text,
         'Usuario': _nombreUsuariox.text,
         'Saldo': saldo,
+        'TipoUsuario': tipo,
+        'Ocupacion': _ocupacionex.text,
       });
       Navigator.pushNamedAndRemoveUntil(
           context, 'home_screen', ModalRoute.withName('login'));

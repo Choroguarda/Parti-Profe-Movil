@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:parti_profe/Screen/datos_persona.dart';
 import 'package:parti_profe/Screen/login.dart';
+import 'Screen/datos_alumno.dart';
 import 'Screen/perfil_persona.dart';
 import 'Screen/home_screen.dart';
 import 'pages/index.dart';
 import 'Screen/registrarse.dart';
 import 'Screen/datos_persona.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'Screen/tipo_de_usuario.dart';
 import 'fire/usuario.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -29,6 +31,9 @@ class MyApp extends StatelessWidget {
         'llamada': (_) => IndexPage(),
         'registro': (BuildContext context) => Registrarse(),
         'datospersonales': (BuildContext context) => Datos_Personales(),
+        'datospersonalesalumno': (BuildContext context) =>
+            Datos_Personales_alumno(),
+        'eleccion': (BuildContext context) => tipousuario(),
       },
     );
   }
